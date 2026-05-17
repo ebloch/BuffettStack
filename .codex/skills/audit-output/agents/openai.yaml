@@ -1,0 +1,6 @@
+interface:
+  display_name: "Audit Output"
+  short_description: "Check research outputs against requirements"
+  default_prompt: "Use $audit-output to check a research output against its skill requirements."
+policy:
+  allow_implicit_invocation: false

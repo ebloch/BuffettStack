@@ -1,0 +1,6 @@
+interface:
+  display_name: "Calculate Owner's Earnings"
+  short_description: "Calculate owner earnings from statement JSON"
+  default_prompt: "Use $calc-oe to calculate historical owner's earnings for a company."
+policy:
+  allow_implicit_invocation: false

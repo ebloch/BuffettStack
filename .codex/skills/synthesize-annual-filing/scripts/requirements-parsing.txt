@@ -1,0 +1,9 @@
+# Dependencies for filing parsers
+# Install with: pip install -r requirements-parsing.txt
+
+# SEC EDGAR filing parser (parse_annual_filing.py)
+edgartools>=2.0.0
+
+# European PDF filing parser (parse_pdf_filing.py)
+PyMuPDF>=1.23.0
+requests>=2.28.0

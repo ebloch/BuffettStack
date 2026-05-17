@@ -1,0 +1,6 @@
+interface:
+  display_name: "Annual Filing Synthesis"
+  short_description: "Synthesize annual filings into analyst memos"
+  default_prompt: "Use $synthesize-annual-filing to synthesize a company annual filing into an investment research memo."
+policy:
+  allow_implicit_invocation: false

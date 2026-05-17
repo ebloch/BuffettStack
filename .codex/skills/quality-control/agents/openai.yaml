@@ -1,0 +1,6 @@
+interface:
+  display_name: "Quality Control"
+  short_description: "Source-grounded research output QC"
+  default_prompt: "Use $quality-control to re-read sources and surgically improve a research output."
+policy:
+  allow_implicit_invocation: false
