@@ -83,9 +83,10 @@ profile and market metadata.
 
 ## License
 
-No license has been added yet. Add one before publishing if you want others to
-have clear permission to use, modify, and redistribute the project.
+MIT License. See [LICENSE](LICENSE).
 
 ## Disclaimer
 
-Personal research tools. Use at your own risk for investment decisions.
+These are personal research tools, not financial advice, investment advice, or
+a recommendation to buy or sell any security. Use your own judgment and verify
+all outputs against primary sources before making investment decisions.
