@@ -3,8 +3,8 @@
 Annual Filing PDF Parser.
 Extracts narrative sections from URDs, UK Annual Reports, and Integrated Reports.
 
-This parser focuses on NARRATIVE sections only. Financial data should be fetched
-from FMP API using /fetch-financials [ticker] for structured, clean data.
+This parser focuses on NARRATIVE sections only. Structured financial data should
+be fetched separately with $fetch-financials [ticker].
 
 Supported filing types:
 - URD (Universal Registration Document): French/EU companies (Hermès, LVMH, etc.)
@@ -23,7 +23,7 @@ Output format (JSON):
 {
     "metadata": {
         "company": "Hermès International",
-        "ticker": null,  // Set externally via FMP
+        "ticker": null,  // Set externally by the invoking skill
         "fiscal_year": 2024,
         "filing_type": "URD",
         "accounting_standard": "IFRS",
@@ -512,10 +512,10 @@ def extract_metadata(text: str, filing_type: str, source: str = None) -> dict:
     """
     metadata = {
         "company": None,
-        "ticker": None,  # Set externally via FMP
+        "ticker": None,  # Set externally by the invoking skill
         "fiscal_year": None,
         "filing_type": filing_type,
-        "accounting_standard": "IFRS",  # European filings use IFRS
+        "accounting_standard": "IFRS",  # URDs, UK reports, and Japanese integrated reports commonly use IFRS
         "source": source,
     }
 
@@ -601,7 +601,7 @@ def extract_metadata(text: str, filing_type: str, source: str = None) -> dict:
 
 def extract_sections(source: str, max_section_length: int = 250000) -> dict:
     """
-    Extract all narrative sections from a European annual filing PDF.
+    Extract all narrative sections from an international annual filing PDF.
 
     This is the main entry point. Call this with a URL or local path.
 

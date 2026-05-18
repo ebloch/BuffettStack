@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import sys
 from dataclasses import dataclass
@@ -90,7 +91,7 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     parser.add_argument("--ticker", help="Ticker override")
     parser.add_argument("--business-type", required=True, choices=sorted(BUSINESS_TYPES))
     parser.add_argument("--maint-capex-rate", type=float, help="Maintenance capex as decimal share of total capex")
-    parser.add_argument("--research-base", help="Override RESEARCH_BASE_PATH")
+    parser.add_argument("--research-base", help="Override research output directory")
     parser.add_argument("--timestamp", help="Filename timestamp override, YYYY-MM-DD-HHMM")
     args = parser.parse_args(argv)
     if args.maint_capex_rate is not None and not 0 <= args.maint_capex_rate <= 1:
@@ -99,22 +100,32 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
 
 
 def find_repo_root() -> Path:
-    start = Path(__file__).resolve()
-    for parent in [start, *start.parents, Path.cwd(), *Path.cwd().parents]:
-        if (parent / ".claude" / "settings.local.json").exists():
-            return parent
-    raise CalcError("Could not find .claude/settings.local.json")
+    candidates = [Path.cwd(), Path(__file__).resolve()]
+    for candidate in candidates:
+        for parent in [candidate, *candidate.parents]:
+            if (
+                (parent / ".git").exists()
+                or (parent / ".codex" / "skills").exists()
+                or (parent / ".codex" / "settings.local.json").exists()
+            ):
+                return parent
+    return Path.cwd()
 
 
 def load_research_base(override: str | None = None) -> Path:
     if override:
         return Path(override).expanduser()
-    settings_path = find_repo_root() / ".claude" / "settings.local.json"
-    settings = json.loads(settings_path.read_text())
-    base = settings.get("env", {}).get("RESEARCH_BASE_PATH")
-    if not base:
-        raise CalcError("RESEARCH_BASE_PATH missing from .claude/settings.local.json")
-    return Path(base).expanduser()
+    env_base = os.environ.get("RESEARCH_BASE_PATH")
+    if env_base:
+        return Path(env_base).expanduser()
+    repo_root = find_repo_root()
+    settings_path = repo_root / ".codex" / "settings.local.json"
+    if settings_path.exists():
+        settings = json.loads(settings_path.read_text())
+        base = settings.get("env", {}).get("RESEARCH_BASE_PATH")
+        if base:
+            return Path(base).expanduser()
+    return repo_root / "research"
 
 
 def normalize_name(value: str) -> str:

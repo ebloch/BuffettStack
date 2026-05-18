@@ -107,6 +107,37 @@ def test_parse_args_rejects_maintenance_capex_rate_over_one():
         oe.parse_args(["--company", "Example Co", "--business-type", "general-operating", "--maint-capex-rate", "50"])
 
 
+def test_load_research_base_prefers_override(tmp_path: Path):
+    assert oe.load_research_base(str(tmp_path)) == tmp_path
+
+
+def test_load_research_base_prefers_environment_variable(tmp_path: Path, monkeypatch):
+    monkeypatch.setenv("RESEARCH_BASE_PATH", str(tmp_path))
+
+    assert oe.load_research_base() == tmp_path
+
+
+def test_load_research_base_reads_codex_settings(tmp_path: Path, monkeypatch):
+    repo = tmp_path / "repo"
+    research = tmp_path / "research-root"
+    settings_dir = repo / ".codex"
+    settings_dir.mkdir(parents=True)
+    (settings_dir / "settings.local.json").write_text(json.dumps({"env": {"RESEARCH_BASE_PATH": str(research)}}))
+    monkeypatch.delenv("RESEARCH_BASE_PATH", raising=False)
+    monkeypatch.chdir(repo)
+
+    assert oe.load_research_base() == research
+
+
+def test_load_research_base_defaults_to_repo_research_dir(tmp_path: Path, monkeypatch):
+    repo = tmp_path / "repo"
+    (repo / ".git").mkdir(parents=True)
+    monkeypatch.delenv("RESEARCH_BASE_PATH", raising=False)
+    monkeypatch.chdir(repo)
+
+    assert oe.load_research_base() == repo / "research"
+
+
 def test_execute_writes_owner_earnings_memo(tmp_path: Path):
     company_dir = tmp_path / "Example Co"
     filings_dir = company_dir / "1.1-Annual-Filings"

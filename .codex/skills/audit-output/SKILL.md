@@ -25,16 +25,16 @@ Examples:
 
 - `references/compliance-check-prompt.md` defines the requirement audit rubric.
 
-For migrated skills, load requirements from `.codex/skills/[skill-name]/`. For skills not yet migrated, use `.claude/skills/[skill-name]/` as read-only source material. Never modify `.claude/**`.
+Load requirements from `.codex/skills/[skill-name]/`. If the target skill is not present, stop and report that it has not been migrated.
 
 ## Workflow
 
 1. Parse inputs.
    - Extract target skill, company, and optional fiscal year.
-   - Read `RESEARCH_BASE_PATH` from `.claude/settings.local.json` at `env.RESEARCH_BASE_PATH`.
+   - Resolve the research root from `RESEARCH_BASE_PATH`, `.codex/settings.local.json`, or the repo-local `research/` default.
 
 2. Locate the output document.
-   - Search under `$RESEARCH_BASE_PATH/[Company]/`.
+   - Search under `$RESEARCH_ROOT/[Company]/`.
    - If an FY token is provided, prefer files containing that fiscal year.
    - For `synthesize-annual-filing`, search `1.1-Annual-Filings/` for `*Synthesis - Memo*.md`.
    - Stop and report clearly if no unique output can be found.
@@ -47,7 +47,7 @@ For migrated skills, load requirements from `.codex/skills/[skill-name]/`. For s
      - `references/validation-checklist.md`
      - `references/industry-checklists/[industry].md`
    - Determine `industry` from output YAML frontmatter when possible.
-   - If the Codex skill does not exist yet, read corresponding `.claude/skills/[skill-name]` files as read-only migration source.
+   - If the target skill does not exist yet, stop and report that it has not been migrated.
 
 4. Check compliance.
    - Use `references/compliance-check-prompt.md`.
@@ -70,4 +70,4 @@ For migrated skills, load requirements from `.codex/skills/[skill-name]/`. For s
 - Do not read source filings or external documents during audit.
 - Do not invent values or calculations.
 - Do not fix source-dependent violations with placeholders unless the requirement is purely structural.
-- Do not modify `.claude/**`, `CLAUDE.md`, or existing Claude skill files.
+- Do not modify skill definitions or settings files.

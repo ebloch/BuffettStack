@@ -28,7 +28,7 @@ If the ticker, year, or PDF source is ambiguous, ask for the missing detail befo
 
 ## Resources
 
-This skill is self-contained. Use these bundled files instead of `.claude` paths:
+This skill is self-contained. Use these bundled files:
 
 - `scripts/parse_annual_filing.py` for SEC filings.
 - `scripts/parse_pdf_filing.py` for local or URL PDF filings.
@@ -45,6 +45,8 @@ When running bundled scripts, first work from this skill directory (`.codex/skil
 Run synthesis locally, then invoke `$quality-control` and `$audit-output` as explicit helper skills for the review passes.
 If the runtime does not automatically load those helper skills, read `.codex/skills/quality-control/SKILL.md` and `.codex/skills/audit-output/SKILL.md` directly and follow them.
 
+For separate structured financial statement JSON, use `$fetch-financials TICKER`. It now supports FMP side-by-side with a free SEC-first path: FMP is used when `FMP_API_KEY` exists, otherwise SEC EDGAR Company Facts is used with Yahoo Finance only as supplemental metadata.
+
 ## Workflow
 
 1. Parse the invocation text.
@@ -53,13 +55,13 @@ If the runtime does not automatically load those helper skills, read `.codex/ski
    - Treat URL or local PDF input as `pdf` mode; otherwise use `sec` mode.
 
 2. Prepare the environment.
-   - Read the research root from `.claude/settings.local.json` at `env.RESEARCH_BASE_PATH`.
+   - Resolve the research root from `RESEARCH_BASE_PATH`, `.codex/settings.local.json`, or the repo-local `research/` default.
    - Use that research root for all research reads and output writes.
    - Generate a timestamp with `date "+%Y-%m-%d-%H%M"`.
    - Pre-compute the output path:
 
 ```text
-$RESEARCH_BASE_PATH/[Company]/1.1-Annual-Filings/FY[Year] - [Company] - [FORM_TYPE] Synthesis - Memo - [TIMESTAMP].md
+$RESEARCH_ROOT/[Company]/1.1-Annual-Filings/FY[Year] - [Company] - [FORM_TYPE] Synthesis - Memo - [TIMESTAMP].md
 ```
 
 3. Parse the filing only with bundled scripts.
@@ -94,5 +96,5 @@ $RESEARCH_BASE_PATH/[Company]/1.1-Annual-Filings/FY[Year] - [Company] - [FORM_TY
 - Prefer existing research and source filings over memory.
 - Preserve source quotes accurately and keep citations/page references when available.
 - Do not invent missing filing data. Put unresolved questions in the memo's questions section or final flagged issues.
-- Do not modify `.claude/**`, `CLAUDE.md`, or existing Claude skill files while running this Codex skill.
+- Do not modify skill definitions or settings files while running this skill.
 - If a phase fails after the memo exists, continue to later review phases when possible and report partial completion.

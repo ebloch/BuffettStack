@@ -28,16 +28,16 @@ The optional fiscal-year token targets year-specific outputs such as annual fili
 - `references/source-review-prompt.md` guides source re-reading and gap classification.
 - `references/enhancement-prompt.md` guides surgical edits for each approved gap.
 
-For migrated skills, load requirements from `.codex/skills/[skill-name]/`. For skills not yet migrated, use `.claude/skills/[skill-name]/` as read-only source material. Never modify `.claude/**`.
+Load requirements from `.codex/skills/[skill-name]/`. If the target skill is not present, stop and report that it has not been migrated.
 
 ## Workflow
 
 1. Parse inputs.
    - Extract target skill, company, and optional fiscal year.
-   - Read `RESEARCH_BASE_PATH` from `.claude/settings.local.json` at `env.RESEARCH_BASE_PATH`.
+   - Resolve the research root from `RESEARCH_BASE_PATH`, `.codex/settings.local.json`, or the repo-local `research/` default.
 
 2. Locate the output document.
-   - Search under `$RESEARCH_BASE_PATH/[Company]/`.
+   - Search under `$RESEARCH_ROOT/[Company]/`.
    - If an FY token is provided, prefer files containing that fiscal year.
    - For `synthesize-annual-filing`, search `1.1-Annual-Filings/` for `*Synthesis - Memo*.md`.
    - Otherwise use the target skill's output pattern from its `SKILL.md` or templates.
@@ -47,7 +47,7 @@ For migrated skills, load requirements from `.codex/skills/[skill-name]/`. For s
 3. Load target skill requirements.
    - Prefer `.codex/skills/[skill-name]/SKILL.md`.
    - Also read available target references such as `references/output-template.md`, `references/validation-checklist.md`, and `references/industry-checklists/[industry].md`.
-   - If the Codex skill does not exist yet, read the corresponding `.claude/skills/[skill-name]` files as read-only migration source.
+   - If the target skill does not exist yet, stop and report that it has not been migrated.
 
 4. Locate and re-read sources.
    - For `$synthesize-annual-filing`, re-parse the filing with the target skill's bundled parser:
@@ -80,4 +80,4 @@ For migrated skills, load requirements from `.codex/skills/[skill-name]/`. For s
 - This skill edits research outputs, not skill definitions.
 - Do not reformat compliant sections for style alone.
 - If a fix requires source verification you cannot perform, leave it unresolved and report it.
-- Do not modify `.claude/**`, `CLAUDE.md`, or existing Claude skill files.
+- Do not modify skill definitions or settings files.

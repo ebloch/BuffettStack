@@ -25,26 +25,26 @@ If no company or ticker is provided, ask for it.
 
 ## Resources
 
-This skill is self-contained. Use these bundled files instead of `.claude` paths:
+This skill is self-contained. Use these bundled files:
 
 - `scripts/calc_owners_earnings.py` reads financial JSON, computes OE tables, and writes the memo.
 - `scripts/test_calc_owners_earnings.py` tests deterministic calculation behavior.
 - `references/output-template.md` defines the target memo structure.
 - `references/phase-2-qc-prompt.md` defines the QC review focus.
 
-For missing financial JSON, invoke `$fetch-financials TICKER` rather than calling FMP directly.
+For missing financial JSON, invoke `$fetch-financials TICKER` in auto mode rather than calling a data provider directly. Auto mode uses FMP when `FMP_API_KEY` is available and otherwise falls back to free SEC/Yahoo data.
 
 ## Workflow
 
 1. Resolve the research context.
-   - Read `RESEARCH_BASE_PATH` from `.claude/settings.local.json` at `env.RESEARCH_BASE_PATH`.
+   - Resolve the research root from `--research-base`, `RESEARCH_BASE_PATH`, `.codex/settings.local.json`, or the repo-local `research/` default.
    - Search under that research root, not the repo working directory.
 
 2. Check prerequisites.
    - Find annual-filing synthesis memos:
 
 ```text
-$RESEARCH_BASE_PATH/[Company]/1.1-Annual-Filings/*Synthesis - Memo*.md
+$RESEARCH_ROOT/[Company]/1.1-Annual-Filings/*Synthesis - Memo*.md
 ```
 
    - Stop if no synthesis memos exist and tell the user to run `$synthesize-annual-filing`.
@@ -100,8 +100,8 @@ python3 scripts/calc_owners_earnings.py --company "COMPANY" --ticker TICKER --bu
 ## Guardrails
 
 - This is a calculation, not a thesis. Keep the output numerical, sourced, and conservative.
-- Do not modify `.claude/**`, `CLAUDE.md`, or existing Claude skill files.
-- Do not use direct FMP API calls. Use `$fetch-financials` for missing statement data.
+- Do not modify skill definitions or settings files.
+- Do not use direct provider API calls. Use `$fetch-financials` for missing statement data.
 - Do not calculate OE for an unsupported business type with a generic fallback.
 - Do not treat stock-based compensation as free. Deduct it every year unless source documents prove it is genuinely zero.
 - Do not double-count SBC by deducting SBC and also applying a separate dilution penalty.
