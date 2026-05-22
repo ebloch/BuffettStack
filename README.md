@@ -80,12 +80,15 @@ profile and market metadata.
     ├── fetch-financials/
     ├── quality-control/
     └── synthesize-annual-filing/
+example-outputs/
+└── synthesize-annual-filing/
 ```
 
 ## Notes
 
 - Bundled scripts should be used instead of calling data providers directly.
-- Keep generated research outputs out of git.
+- Keep generated research outputs out of git, except curated examples under
+  `example-outputs/`.
 
 ## License
 
