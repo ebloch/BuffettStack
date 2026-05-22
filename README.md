@@ -1,10 +1,10 @@
-# BuffettStack
-
 ## Disclaimer
 
 These are personal research tools, not financial advice, investment advice, or
 a recommendation to buy or sell any security. Use your own judgment and verify
 all outputs against primary sources before making investment decisions.
+
+# BuffettStack
 
 Codex skills for systematic investment research, inspired by Warren Buffett,
 Charlie Munger, Benjamin Graham, and Philip Fisher.
