@@ -8,4 +8,4 @@ expected level of detail without requiring a fresh research run.
 
 | Skill | Example |
 | --- | --- |
-| `$synthesize-annual-filing` | `synthesize-annual-filing/FY2025 - Berkshire Hathaway - 10-K Synthesis - Memo - 2026-05-07-0830.md` |
+| `$synthesize-annual-filing` | `synthesize-annual-filing/FY2024 - Berkshire Hathaway - 10-K Synthesis - Memo - 2026-05-09-1358.md` |
