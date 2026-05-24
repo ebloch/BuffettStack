@@ -895,6 +895,10 @@ def write_json(path: Path, payload: dict[str, Any]) -> None:
     path.write_text(json.dumps(payload, indent=2, sort_keys=False) + "\n")
 
 
+def filename_company_name(company_name: str) -> str:
+    return company_name.strip().rstrip(".") or company_name.strip()
+
+
 def format_money(value: Any) -> str:
     if value is None:
         return ""
@@ -1217,7 +1221,7 @@ def execute(args: argparse.Namespace) -> dict[str, Any]:
         files.append(str(output_path))
 
     markdown = build_markdown(company_name, ticker, payloads)
-    markdown_path = output_dir / f"Financial Statements - {company_name}.md"
+    markdown_path = output_dir / f"Financial Statements - {filename_company_name(company_name)}.md"
     markdown_path.write_text(markdown)
     files.append(str(markdown_path))
 

@@ -42,6 +42,14 @@ fiscal_year: [YYYY]
 fiscal_year_end: [YYYY-MM-DD]
 filing_date: [YYYY-MM-DD]
 synthesis_date: [YYYY-MM-DD]
+formal_qc_run: false
+formal_audit_run: false
+qc_status: pending
+audit_status: blocked_until_qc_complete
+qc_completed_at: null
+audit_completed_at: null
+qc_result: null
+audit_result: null
 form_type: [10-K|20-F|40-F|URD|UK-ANNUAL-REPORT|INTEGRATED-REPORT]  # Type of annual filing
 regulator: [SEC|AMF|FCA|FSA|null]  # SEC for US filings, AMF for French URDs, FCA for UK filings, FSA for Japanese filings
 accounting_standard: [GAAP|IFRS]  # GAAP for US 10-K/20-F (most), IFRS for European filings and 40-F

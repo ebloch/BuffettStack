@@ -34,6 +34,23 @@ This skill is self-contained. Use these bundled files:
 
 For missing financial JSON, invoke `$fetch-financials TICKER` in auto mode rather than calling a data provider directly. Auto mode uses FMP when `FMP_API_KEY` is available and otherwise falls back to free SEC/Yahoo data.
 
+## Formal Review Gate
+
+The QC pass is mandatory after the deterministic memo is written. A manual review by the calculation pass is not a substitute for running `$quality-control`.
+
+When the draft memo is first written, add or update these YAML frontmatter fields:
+
+```yaml
+formal_qc_run: false
+qc_status: pending
+qc_completed_at: null
+qc_result: null
+```
+
+After the draft exists, run `$quality-control calc-oe "COMPANY"`. The QC helper must edit the memo in place and set `formal_qc_run: true`, `qc_status`, `qc_completed_at`, and `qc_result`.
+
+Do not report the workflow as complete unless `formal_qc_run: true` is present in the final memo. If QC cannot run, report the workflow as incomplete and state that formal QC is missing.
+
 ## Workflow
 
 1. Resolve the research context.

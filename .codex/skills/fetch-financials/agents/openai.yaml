@@ -1,6 +1,6 @@
 interface:
   display_name: "Fetch Financials"
-  short_description: "Fetch and store FMP financial statements"
+  short_description: "Fetch and store financial statements"
   default_prompt: "Use $fetch-financials to fetch a company's financial statements into the research folder."
 policy:
   allow_implicit_invocation: false

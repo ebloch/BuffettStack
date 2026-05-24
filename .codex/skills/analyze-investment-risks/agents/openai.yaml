@@ -1,0 +1,6 @@
+interface:
+  display_name: "Investment Risk Analysis"
+  short_description: "Map thesis risks and monitoring signals"
+  default_prompt: "Use $analyze-investment-risks to build a risk matrix, thesis killers, and monitoring dashboard for a company."
+policy:
+  allow_implicit_invocation: false

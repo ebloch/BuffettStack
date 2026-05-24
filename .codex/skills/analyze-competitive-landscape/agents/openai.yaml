@@ -1,0 +1,6 @@
+interface:
+  display_name: "Competitive Landscape Analysis"
+  short_description: "Analyze industry competition and threats"
+  default_prompt: "Use $analyze-competitive-landscape to analyze a company industry structure, competitors, and external threats."
+policy:
+  allow_implicit_invocation: false

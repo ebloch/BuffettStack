@@ -49,6 +49,8 @@ Ask Codex to run one of the skills by name:
 ```text
 $fetch-financials CME
 $synthesize-annual-filing CME 2024
+$company-overview CME
+$analyze-business-economics CME
 $calc-oe CME
 ```
 
@@ -60,12 +62,28 @@ variable, or `.codex/settings.local.json` at `env.RESEARCH_BASE_PATH`.
 falls back to free SEC EDGAR Company Facts with Yahoo Finance as supplemental
 profile and market metadata.
 
+Other skills that can use FMP-sourced transcripts or press releases prefer FMP
+when `FMP_API_KEY` is available, but should fall back to free sources such as
+company investor-relations pages, SEC filings, existing local earnings files,
+and web-searched transcript pages when no FMP token is available.
+
 ## Skills
 
 | Skill | Purpose |
 | --- | --- |
 | `$synthesize-annual-filing` | Synthesize one annual filing into an analyst memo with QC and audit passes. |
+| `$synthesize-investor-materials` | Synthesize investor presentations, investor days, quarterly decks, and shareholder letters. |
 | `$fetch-financials` | Fetch and store financial statements as canonical JSON plus Markdown summary, using FMP or free SEC-first data. |
+| `$company-overview` | Create or refresh the standing business overview for a company. |
+| `$analyze-business-economics` | Analyze business model, unit economics, accounting quirks, and key operating metrics. |
+| `$analyze-competitive-landscape` | Analyze industry structure, market share, profit pools, and competitive threats. |
+| `$analyze-moat-strength` | Score moat strength and trajectory with evidence-backed checklist scoring. |
+| `$audit-management-credibility` | Compare management promises, guidance, capital allocation claims, and outcomes. |
+| `$analyze-investment-risks` | Build risk categories, thesis killers, monitoring dashboard, and downside scenarios. |
+| `$scenario-analysis` | Create qualitative 10-year scenarios with probability assignments. |
+| `$scuttlebutt` | Gather Philip Fisher-style grassroots intelligence across stakeholder groups. |
+| `$run-fisher-analysis` | Score a company against Philip Fisher's 15-point checklist. |
+| `$run-munger-analysis` | Evaluate business quality, management, moat, and compounding potential through Munger-style mental models. |
 | `$calc-oe` | Calculate historical owner's earnings from financial statement JSON and annual filing memos. |
 | `$quality-control` | Re-read sources and surgically fix content gaps in a research output. |
 | `$audit-output` | Check a research output against its skill requirements and fix compliance violations. |
@@ -79,7 +97,8 @@ profile and market metadata.
     ├── calc-oe/
     ├── fetch-financials/
     ├── quality-control/
-    └── synthesize-annual-filing/
+    ├── synthesize-annual-filing/
+    └── ...additional analysis skills
 example-outputs/
 └── synthesize-annual-filing/
 ```

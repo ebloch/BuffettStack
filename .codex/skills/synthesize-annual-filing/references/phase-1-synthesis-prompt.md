@@ -44,6 +44,7 @@ You are synthesizing the FY [YEAR] [FORM_TYPE] for [COMPANY] ([TICKER]).
 ### YAML Frontmatter (REQUIRED)
 Every memo MUST start with valid YAML frontmatter containing:
 - Basic metadata: company, ticker, fiscal_year, filing_date, synthesis_date, industry, form_type, accounting_standard
+- Formal review gate fields: `formal_qc_run: false`, `formal_audit_run: false`, `qc_status: pending`, `audit_status: blocked_until_qc_complete`, `qc_completed_at: null`, `audit_completed_at: null`, `qc_result: null`, `audit_result: null`
 - Key metrics: revenue_m, operating_income_m, net_income_m, fcf_m, employees + industry-specific
 - **Ratings** (for insurers/banks): am_best, sp, moodys, outlook
 - Segments: name, revenue_m, pct_total (top 3-5)
@@ -170,7 +171,7 @@ For financial strength ratings (A.M. Best, S&P, Moody's, Fitch):
 - **Shell:** Use ONLY for running the bundled Python parser (`python3 scripts/parse_annual_filing.py ...`)
 - **Read files:** Use for reading template files, checklists, and any other files.
 - **Edit/write files:** Use for saving the output memo.
-- **Do NOT use:** `sed` or `awk` for file manipulation. Use the Read and Write tools instead.
+- **Do NOT use:** `sed` or `awk` for file manipulation. Use normal Codex file reads and scoped edits instead.
 
 This is professional investment research. Thoroughness matters. Do not take shortcuts.
 

@@ -61,7 +61,24 @@ Load requirements from `.codex/skills/[skill-name]/`. If the target skill is not
    - Fix malformed tables, section headers, tags, cross-references, and obvious format issues.
    - Preserve the author's analysis and avoid cosmetic rewrites.
 
-6. Report status.
+6. Update formal review status.
+   - Edit the target output in place to record that the formal audit helper pass ran.
+   - If the output has YAML frontmatter, set:
+
+```yaml
+formal_audit_run: true
+audit_status: complete | partial | failed
+audit_completed_at: YYYY-MM-DD-HHMM
+audit_result:
+  violations_found: N
+  fixes_applied: N
+  flagged_for_review: []
+```
+
+   - If the output has no YAML frontmatter, add or update a short `## Formal Review Status` section with the same fields.
+   - Preserve `formal_qc_run`, `qc_status`, `qc_completed_at`, and `qc_result` when present.
+
+7. Report status.
    - Include output path, requirements checked, fixes applied, and flag-only issues.
    - Recommend `$quality-control` for unresolved source-dependent issues.
 

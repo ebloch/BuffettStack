@@ -1,0 +1,6 @@
+interface:
+  display_name: "Management Credibility Audit"
+  short_description: "Audit management promises and follow-through"
+  default_prompt: "Use $audit-management-credibility to score management promises, delivery, and capital allocation credibility."
+policy:
+  allow_implicit_invocation: false

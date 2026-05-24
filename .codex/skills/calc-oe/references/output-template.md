@@ -3,6 +3,13 @@
 Use this structure for `$calc-oe` output files. Tables should have one column per fiscal year with an annual-filing synthesis memo.
 
 ```markdown
+---
+formal_qc_run: false
+qc_status: pending
+qc_completed_at: null
+qc_result: null
+---
+
 # [Company] - Owner's Earnings
 
 **Date:** [YYYY-MM-DD]

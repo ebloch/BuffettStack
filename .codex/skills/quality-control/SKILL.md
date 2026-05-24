@@ -71,7 +71,24 @@ Load requirements from `.codex/skills/[skill-name]/`. If the target skill is not
    - Re-read the edited section after each edit.
    - Iterate up to 3 total review loops.
 
-7. Report status.
+7. Update formal review status.
+   - Edit the target output in place to record that the formal helper pass ran.
+   - If the output has YAML frontmatter, set:
+
+```yaml
+formal_qc_run: true
+qc_status: complete | partial | failed
+qc_completed_at: YYYY-MM-DD-HHMM
+qc_result:
+  gaps_found: N
+  gaps_addressed: N
+  remaining_issues: []
+```
+
+   - If the output has no YAML frontmatter, add a short `## Formal Review Status` section with the same fields.
+   - Do not mark `formal_audit_run` or `audit_status`; audit is a separate pass.
+
+8. Report status.
    - Include output path, sources reviewed, gaps found, gaps fixed, and remaining issues.
 
 ## Guardrails

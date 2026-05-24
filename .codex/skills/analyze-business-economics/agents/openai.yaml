@@ -1,0 +1,6 @@
+interface:
+  display_name: "Business Economics Analysis"
+  short_description: "Analyze business model economics"
+  default_prompt: "Use $analyze-business-economics to analyze a company business model, accounting quirks, and key operating metrics."
+policy:
+  allow_implicit_invocation: false

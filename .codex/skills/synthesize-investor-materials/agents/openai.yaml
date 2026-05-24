@@ -1,0 +1,6 @@
+interface:
+  display_name: "Investor Materials Synthesis"
+  short_description: "Synthesize decks and shareholder letters"
+  default_prompt: "Use $synthesize-investor-materials to synthesize investor decks, investor days, or shareholder letters."
+policy:
+  allow_implicit_invocation: false

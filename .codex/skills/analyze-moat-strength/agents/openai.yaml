@@ -1,0 +1,6 @@
+interface:
+  display_name: "Moat Strength Analysis"
+  short_description: "Score moat strength and trajectory"
+  default_prompt: "Use $analyze-moat-strength to score a company moat strength, trajectory, and evidence quality."
+policy:
+  allow_implicit_invocation: false

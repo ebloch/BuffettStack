@@ -1,0 +1,6 @@
+interface:
+  display_name: "Company Overview"
+  short_description: "Build a multi-year company overview"
+  default_prompt: "Use $company-overview to synthesize a company business overview from existing filings and research."
+policy:
+  allow_implicit_invocation: false

@@ -1,0 +1,6 @@
+interface:
+  display_name: "Fisher Checklist Analysis"
+  short_description: "Score Fisher 15-point checklist"
+  default_prompt: "Use $run-fisher-analysis to score a company against Philip Fisher's 15-point checklist."
+policy:
+  allow_implicit_invocation: false

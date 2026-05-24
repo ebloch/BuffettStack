@@ -1,0 +1,6 @@
+interface:
+  display_name: "Scuttlebutt"
+  short_description: "Gather stakeholder sentiment intelligence"
+  default_prompt: "Use $scuttlebutt to gather grassroots stakeholder intelligence for a company."
+policy:
+  allow_implicit_invocation: false

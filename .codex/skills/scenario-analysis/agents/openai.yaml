@@ -1,0 +1,6 @@
+interface:
+  display_name: "Scenario Analysis"
+  short_description: "Write qualitative 10-year scenarios"
+  default_prompt: "Use $scenario-analysis to create qualitative 10-year scenarios with probabilities for a company."
+policy:
+  allow_implicit_invocation: false

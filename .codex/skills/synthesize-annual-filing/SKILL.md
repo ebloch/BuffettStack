@@ -45,6 +45,29 @@ When running bundled scripts, first work from this skill directory (`.codex/skil
 Run synthesis locally, then invoke `$quality-control` and `$audit-output` as explicit helper skills for the review passes.
 If the runtime does not automatically load those helper skills, read `.codex/skills/quality-control/SKILL.md` and `.codex/skills/audit-output/SKILL.md` directly and follow them.
 
+## Formal Review Gate
+
+The review passes are mandatory and sequential. A manual review by the synthesis pass is not a substitute for running the helper skills.
+
+When the draft memo is first written, add or update these YAML frontmatter fields:
+
+```yaml
+formal_qc_run: false
+formal_audit_run: false
+qc_status: pending
+audit_status: blocked_until_qc_complete
+qc_completed_at: null
+audit_completed_at: null
+qc_result: null
+audit_result: null
+```
+
+After the draft exists, run `$quality-control synthesize-annual-filing "COMPANY" FY[YEAR]` first. The QC helper must edit the memo in place and set `formal_qc_run: true`, `qc_status`, `qc_completed_at`, and `qc_result`.
+
+Only after formal QC is complete or partial, run `$audit-output synthesize-annual-filing "COMPANY" FY[YEAR]`. The audit helper must edit the memo in place and set `formal_audit_run: true`, `audit_status`, `audit_completed_at`, and `audit_result`.
+
+Do not report the workflow as complete unless `formal_qc_run: true` and `formal_audit_run: true` are present in the final memo. If either helper pass cannot run, report the workflow as incomplete and state exactly which pass is missing.
+
 For separate structured financial statement JSON, use `$fetch-financials TICKER`. It now supports FMP side-by-side with a free SEC-first path: FMP is used when `FMP_API_KEY` exists, otherwise SEC EDGAR Company Facts is used with Yahoo Finance only as supplemental metadata.
 
 ## Workflow

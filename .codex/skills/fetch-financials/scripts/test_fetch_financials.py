@@ -183,6 +183,10 @@ def test_written_json_is_pretty_and_round_trips(tmp_path: Path):
     assert output.read_text().endswith("\n")
 
 
+def test_filename_company_name_strips_trailing_period():
+    assert ff.filename_company_name("Berkshire Hathaway Inc.") == "Berkshire Hathaway Inc"
+
+
 def test_select_source_auto_prefers_fmp_when_token_exists(monkeypatch):
     monkeypatch.setenv("FMP_API_KEY", "token")
 
