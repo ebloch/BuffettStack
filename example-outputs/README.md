@@ -15,6 +15,11 @@ Examples should be added here only after the corresponding skill has been run.
 | `$scuttlebutt` | `scuttlebutt/Scuttlebutt - Memo - Berkshire Hathaway Inc. - 2026-05-24-1459.md` |
 | `$analyze-competitive-landscape` | `analyze-competitive-landscape/Competitive Landscape - Analysis - Berkshire Hathaway Inc. - 2026-05-24-1459.md` |
 | `$analyze-moat-strength` | `analyze-moat-strength/Moat Strength - Analysis - Berkshire Hathaway Inc. - 2026-05-24-1542.md` |
+| `$audit-management-credibility` | `audit-management-credibility/Management Credibility - Memo - Berkshire Hathaway Inc. - 2026-05-24-2108.md` |
+| `$analyze-investment-risks` | `analyze-investment-risks/Risk Assessment - Analysis - Berkshire Hathaway Inc. - 2026-05-24-2116.md` |
+| `$scenario-analysis` | `scenario-analysis/10-Year Scenario Analysis - Berkshire Hathaway Inc. - 2026-05-24-2119.md` |
+| `$run-fisher-analysis` | `run-fisher-analysis/Fisher 15-Point Checklist - Analysis - Berkshire Hathaway Inc. - 2026-05-25-1753.md` |
+| `$run-munger-analysis` | `run-munger-analysis/Munger Analysis - Memo - Berkshire Hathaway Inc. - 2026-05-25-1758.md` |
 
 ## Example scope
 
