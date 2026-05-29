@@ -38,6 +38,8 @@ qc_result: null
 
 ## OE Calculation Detail
 
+Include only formula-relevant calculation rows. For example, omit `+ D&A` and `- Maint Capex` for insurance and bank-lender outputs unless a source-backed manual adjustment uses them.
+
 | Component | FY20XX | FY20XX | Source |
 |---|---:|---:|---|
 | Starting metric | | | Income Statement |

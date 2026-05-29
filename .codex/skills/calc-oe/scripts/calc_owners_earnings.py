@@ -467,6 +467,13 @@ def build_markdown(
     latest = calculations[-1] if calculations else None
 
     lines = [
+        "---",
+        "formal_qc_run: false",
+        "qc_status: pending",
+        "qc_completed_at: null",
+        "qc_result: null",
+        "---",
+        "",
         f"# {company} - Owner's Earnings",
         "",
         f"**Date:** {output_date}",
@@ -504,14 +511,23 @@ def build_markdown(
 
     detail_rows = [
         row(calculations[0].starting_metric_name if calculations else "Starting metric", [fmt_money_m(calc.starting_metric) for calc in calculations], "Income Statement / Cash Flow"),
-        row("+ D&A", [fmt_money_m(calc.depreciation_amortization) for calc in calculations], "Cash Flow / Income Statement"),
-        row("- Maint Capex", [fmt_money_m(calc.maint_capex) for calc in calculations], f"EST: {maint_capex_rate * 100:.0f}% of total capex"),
-        row("- SBC", [fmt_money_m(calc.stock_based_compensation) for calc in calculations], "Cash Flow JSON unless source-overridden"),
-        row("+/- One-time adjustments", [fmt_money_m(calc.one_time_adjustments) for calc in calculations], "None applied by script"),
-        row("= Owner's Earnings", [fmt_money_m(calc.owners_earnings) for calc in calculations], ""),
-        row("Diluted Shares (M)", [fmt_shares_m(calc.shares_diluted) for calc in calculations], "Income Statement"),
-        row("OE per Share", [fmt_dollar(calc.oe_per_share) for calc in calculations], ""),
     ]
+    if business_type in ("general-operating", "aircraft-lessor", "exchange-asset-light"):
+        detail_rows.append(row("+ D&A", [fmt_money_m(calc.depreciation_amortization) for calc in calculations], "Cash Flow / Income Statement"))
+        detail_rows.append(row("- Maint Capex", [fmt_money_m(calc.maint_capex) for calc in calculations], f"EST: {maint_capex_rate * 100:.0f}% of total capex"))
+    elif business_type in ("reit", "asset-heavy-industrial"):
+        detail_rows.append(row("- Maint Capex", [fmt_money_m(calc.maint_capex) for calc in calculations], f"EST: {maint_capex_rate * 100:.0f}% of total capex"))
+    detail_rows.append(row("- SBC", [fmt_money_m(calc.stock_based_compensation) for calc in calculations], "Cash Flow JSON unless source-overridden"))
+    if business_type == "asset-heavy-industrial":
+        detail_rows.append(row("- Income Tax Expense", [fmt_money_m(calc.income_tax) for calc in calculations], "Income Statement"))
+    detail_rows.extend(
+        [
+            row("+/- One-time adjustments", [fmt_money_m(calc.one_time_adjustments) for calc in calculations], "None applied by script"),
+            row("= Owner's Earnings", [fmt_money_m(calc.owners_earnings) for calc in calculations], ""),
+            row("Diluted Shares (M)", [fmt_shares_m(calc.shares_diluted) for calc in calculations], "Income Statement"),
+            row("OE per Share", [fmt_dollar(calc.oe_per_share) for calc in calculations], ""),
+        ]
+    )
     lines.extend(build_table(["Component", *fy_headers, "Source"], detail_rows))
     lines.extend(["", "---", "", "## Input Data", "", "### Income Statement Extract", ""])
 

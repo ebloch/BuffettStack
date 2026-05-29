@@ -9,7 +9,7 @@ Examples should be added here only after the corresponding skill has been run.
 | --- | --- |
 | `$synthesize-annual-filing` | `synthesize-annual-filing/FY2024 - Berkshire Hathaway - 10-K Synthesis - Memo - 2026-05-09-1358.md` |
 | `$fetch-financials` | `fetch-financials/Financial Statements - Berkshire Hathaway Inc.md` |
-| `$calc-oe` | `calc-oe/Owner's Earnings - Berkshire Hathaway Inc. - 2026-05-22-1452.md` |
+| `$calc-oe` | `calc-oe/Owner's Earnings - Berkshire Hathaway Inc. - 2026-05-29-1200.md` |
 | `$company-overview` | `company-overview/Berkshire Hathaway Inc - Business Overview.md` |
 | `$analyze-business-economics` | `analyze-business-economics/Business Economics Analysis - Berkshire Hathaway Inc. - 2026-05-23-1041.md` |
 | `$scuttlebutt` | `scuttlebutt/Scuttlebutt - Memo - Berkshire Hathaway Inc. - 2026-05-24-1459.md` |

@@ -199,3 +199,37 @@ def test_execute_writes_owner_earnings_memo(tmp_path: Path):
     assert "# Example Co - Owner's Earnings" in text
     assert "| Total OE ($M) | 95 | 115 |" in text
     assert result["years_calculated"] == ["2023", "2024"]
+
+
+def test_insurance_markdown_omits_unused_d_and_a_and_maint_capex_rows(tmp_path: Path):
+    output = oe.build_markdown(
+        company="Insurer Co",
+        ticker="INS",
+        business_type="insurance",
+        maint_capex_rate=0,
+        calculations=[
+            oe.calculate_year(
+                "2024",
+                "insurance",
+                0,
+                {"revenue": 1_000_000_000, "net_income": 100_000_000, "shares_diluted": 10_000_000},
+                {
+                    "depreciation_amortization": 20_000_000,
+                    "capex": -10_000_000,
+                    "stock_based_compensation": 1_000_000,
+                    "free_cash_flow": 80_000_000,
+                },
+            )
+        ],
+        income_path=tmp_path / "INS-income-statement.json",
+        cash_path=tmp_path / "INS-cash-flow.json",
+        memo_paths={"2024": tmp_path / "FY2024 - Insurer Co - 10-K Synthesis - Memo.md"},
+        business_economics_path=None,
+        output_date="2026-05-29",
+    )
+
+    detail = output.split("## OE Calculation Detail", 1)[1].split("## Input Data", 1)[0]
+    assert output.startswith("---\nformal_qc_run: false\n")
+    assert "| + D&A |" not in detail
+    assert "| - Maint Capex |" not in detail
+    assert "| - SBC | 1 | Cash Flow JSON unless source-overridden |" in detail

@@ -1,6 +1,23 @@
+---
+formal_qc_run: true
+qc_status: complete
+qc_completed_at: 2026-05-29-0953
+qc_result:
+  gaps_found: 0
+  gaps_addressed: 0
+  remaining_issues: []
+formal_audit_run: true
+audit_status: complete
+audit_completed_at: 2026-05-29-0953
+audit_result:
+  violations_found: 1
+  fixes_applied: 1
+  flagged_for_review: []
+---
+
 # Berkshire Hathaway Inc. - Owner's Earnings
 
-**Date:** 2026-05-22
+**Date:** 2026-05-29
 **Ticker:** BRK-B
 **Business Type:** insurance
 **OE Formula:** Net Income - SBC, adjusted to operating earnings when source-supported
@@ -29,8 +46,6 @@
 | Component | FY2024 | Source |
 | --- | ---: | ---: |
 | Net Income | 88,995 | Income Statement / Cash Flow |
-| + D&A | 12,855 | Cash Flow / Income Statement |
-| - Maint Capex | 0 | EST: 0% of total capex |
 | - SBC | 0 | Cash Flow JSON unless source-overridden |
 | +/- One-time adjustments | (41,558) | Source-backed adjustment to FY2024 operating earnings |
 | = Owner's Earnings | 47,437 |  |
@@ -66,7 +81,7 @@
 
 ## One-Time Adjustments
 
-The deterministic script started from GAAP net income. The annual-filing memo says Berkshire's FY2024 operating earnings were $47.437 billion and that Buffett emphasized operating earnings over GAAP net income because investment gains and losses create large period-to-period volatility.
+The deterministic script started from GAAP net income. The annual-filing memo and Business Economics analysis identify Berkshire's FY2024 operating earnings as $47.437 billion and flag GAAP investment gains and losses as period-to-period volatility that should be valued separately from recurring operating earnings.
 
 | Year | Item | Amount ($M) | Action | Rationale |
 |---|---|---:|---|---|
@@ -78,7 +93,7 @@ The deterministic script started from GAAP net income. The annual-filing memo sa
 
 ### Business Type Rationale
 
-Classified as `insurance` because Berkshire's annual-filing memo identifies insurance underwriting, insurance investment income and float as central to the earnings engine, while also noting the company is a diversified collection of operating subsidiaries.
+Classified as `insurance` because the Business Economics analysis identifies Berkshire as an insurance-led decentralized conglomerate and the annual-filing memo identifies insurance underwriting, insurance investment income and float as central to the earnings engine.
 
 ### OE Formula Rationale
 
@@ -102,7 +117,12 @@ No deterministic data gaps identified.
 
 ### vs. Business Economics Section 8
 
-No Business Economics analysis available for cross-check.
+Business Economics file available for manual cross-check: `/Users/ethanbloch/Projects/BuffettStack/research/Berkshire Hathaway Inc./2.1-Business-Economics/Business Economics Analysis - Berkshire Hathaway Inc. - 2026-05-23-1041.md`
+
+| Metric | This Calculation | Biz Econ Section 8 | Difference | Explanation |
+|---|---:|---:|---:|---|
+| Owner's Earnings ($M) | 47,437 | 47,437 | 0 | Matches Business Economics Section 8 normalized operating owner earnings |
+| OE per Share | $22.00 | N/A | N/A | Business Economics provides the total OE cross-check, not a per-share figure |
 
 ### vs. Free Cash Flow
 
@@ -121,3 +141,4 @@ No Business Economics analysis available for cross-check.
 - Cash Flow Statement: `/Users/ethanbloch/Projects/BuffettStack/research/Berkshire Hathaway Inc./1.3-Financial-Statements/BRK-B-cash-flow.json`
 - Annual Filing Memos:
   - FY2024: `/Users/ethanbloch/Projects/BuffettStack/research/Berkshire Hathaway Inc./1.1-Annual-Filings/FY2024 - Berkshire Hathaway - 10-K Synthesis - Memo - 2026-05-09-1358.md`
+- Business Economics: `/Users/ethanbloch/Projects/BuffettStack/research/Berkshire Hathaway Inc./2.1-Business-Economics/Business Economics Analysis - Berkshire Hathaway Inc. - 2026-05-23-1041.md`
